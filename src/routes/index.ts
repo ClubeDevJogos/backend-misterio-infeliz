@@ -1,7 +1,9 @@
 import { Router } from "express";
 
-const routes = Router()
+const routes = Router();
 
-routes.post("/user");
+routes.get("/", async (req, res) => {
+  return res.send("OK");
+});
 
-export default routes
+export default routes;
