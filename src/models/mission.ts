@@ -2,23 +2,15 @@ import { DataTypes } from "sequelize";
 import database from "../database";
 import { v4 as uuidv4 } from "uuid";
 
-const user = database.define(
-  "user",
+const mission = database.define(
+  "mission",
   {
-    id_user: {
+    id_mission: {
       type: DataTypes.UUID,
       defaultValue: uuidv4,
       primaryKey: true,
     },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -28,4 +20,4 @@ const user = database.define(
   }
 );
 
-export default user;
+export default mission;
