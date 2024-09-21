@@ -5,6 +5,7 @@ import authConfig from "../config/auth";
 import checkUserPassword from "../services/checkUserPassword";
 
 import user from "../models/user";
+import mission from "../models/mission";
 
 class UserController {
   async store(req: any, res: any) {
@@ -12,7 +13,6 @@ class UserController {
       username: z.string().min(3),
       email: z.string().email(),
       password: z.string().min(6),
-      id_mission: z.string().uuid(),
     });
 
     if (userSchema.safeParse(req.body).success === false) {
@@ -27,7 +27,11 @@ class UserController {
       return res.status(400).json({ error: "User already exists" });
     }
 
-    const { username, password, id_mission } = req.body;
+    const { username, password } = req.body;
+
+    const { id_mission } = (await mission.findOne({
+      where: { id_chapter: 1 },
+    })) as any;
 
     await user.create({
       username,

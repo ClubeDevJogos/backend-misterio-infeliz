@@ -1,14 +1,13 @@
 import { DataTypes } from "sequelize";
 import database from "../database";
-import { v4 as uuidv4 } from "uuid";
 
 const mission = database.define(
   "mission",
   {
     id_mission: {
-      type: DataTypes.UUID,
-      defaultValue: uuidv4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
