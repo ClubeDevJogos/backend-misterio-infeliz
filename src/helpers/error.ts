@@ -5,7 +5,7 @@ export function jsonSyntaxError(err: any, req: any, res: any, next: any) {
     err.status === 400 &&
     "body" in req
   ) {
-    return res.status(400).json({ error: "Invalid JSON" });
+    return res.status(400).json({ error: "JSON inválido" });
   }
 
   next();

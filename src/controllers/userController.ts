@@ -16,7 +16,7 @@ class UserController {
     });
 
     if (userSchema.safeParse(req.body).success === false) {
-      return res.status(400).json({ error: "Invalid data" });
+      return res.status(400).json({ error: "Dados inválidos" });
     }
 
     const { email } = req.body;
@@ -24,7 +24,7 @@ class UserController {
     const userExists = await user.findOne({ where: { email } });
 
     if (userExists) {
-      return res.status(400).json({ error: "User already exists" });
+      return res.status(400).json({ error: "Usuário já existente" });
     }
 
     const { username, password } = req.body;
@@ -50,7 +50,7 @@ class UserController {
     });
 
     if (userSchema.safeParse(req.body).success === false) {
-      return res.status(400).json({ error: "Invalid data" });
+      return res.status(400).json({ error: "Dados inválidos" });
     }
 
     const { email } = req.body;
@@ -58,13 +58,13 @@ class UserController {
     const userExists = await user.findOne({ where: { email } });
 
     if (!userExists) {
-      return res.status(400).json({ error: "User not found" });
+      return res.status(400).json({ error: "Usuário não encontrado" });
     }
 
     const { password } = req.body;
 
     if (!(await checkUserPassword(password, userExists))) {
-      return res.status(400).json({ error: "Incorrect password" });
+      return res.status(400).json({ error: "Senha incorreta" });
     }
 
     return res.json({
