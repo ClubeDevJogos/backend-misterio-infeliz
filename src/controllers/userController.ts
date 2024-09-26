@@ -29,9 +29,10 @@ class UserController {
 
     const { username, password } = req.body;
 
-    const { id_mission } = (await mission.findOne({
+    // @ts-ignore
+    const { id_mission } = await mission.findOne({
       where: { id_chapter: 1 },
-    })) as any;
+    });
 
     await user.create({
       username,
@@ -67,8 +68,11 @@ class UserController {
       return res.status(400).json({ error: "Senha incorreta" });
     }
 
+    // @ts-ignore
+    const { id_user } = userExists;
+
     return res.json({
-      token: jwt.sign({}, authConfig.secret ?? "", {
+      token: jwt.sign({ id_user }, authConfig.secret ?? "", {
         expiresIn: authConfig.expiresIn,
       }),
     });
