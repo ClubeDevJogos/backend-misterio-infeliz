@@ -18,7 +18,7 @@ class ItemController {
       where: { name: req.body.item_name },
     });
 
-    const id_user = req.uid_user;
+    const id_user = req.auth.id_user;
 
     const hasItem = await user_item.findOne({
       where: { id_user, id_item },
