@@ -12,6 +12,10 @@ module.exports = {
           name: "Mission 1",
           id_chapter: 1,
         },
+        {
+          name: "Mission 2",
+          id_chapter: 1,
+        },
       ],
       {}
     );
