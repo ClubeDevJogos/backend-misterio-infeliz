@@ -14,8 +14,10 @@ routes.post("/session", userController.session);
 
 routes.use(authMiddleware);
 
-routes.get("/hasItem", itemController.hasItem);
 routes.get("/chapters", chapterController.index);
+routes.get("/hasItem", itemController.hasItem);
+routes.get("/missionUser", userController.showMission);
+routes.post("/updateMissionOfUser", userController.updateMission);
 
 routes.use(errorRoute);
 

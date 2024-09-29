@@ -69,13 +69,45 @@ class UserController {
     }
 
     // @ts-ignore
-    const { id_user } = userExists;
+    const { id_user, id_mission } = userExists;
 
     return res.json({
-      token: jwt.sign({ id_user }, authConfig.secret ?? "", {
+      token: jwt.sign({ id_user, id_mission }, authConfig.secret ?? "", {
         expiresIn: authConfig.expiresIn,
       }),
     });
+  }
+
+  async updateMission(req: any, res: any) {
+    const next_mission = await mission.findOne({
+      where: { id_mission: req.auth.id_mission + 1 },
+    });
+
+    if (!next_mission) {
+      return res
+        .status(400)
+        .json({ error: "Usuário concluiu todas as missoes" });
+    }
+
+    await user.update(
+      // @ts-ignore
+      { id_mission: next_mission.id_mission },
+      { where: { id_user: req.auth.id_user } }
+    );
+
+    return res.json({
+      token: jwt.sign(
+        { ...req.auth, id_mission: req.auth.id_mission + 1 },
+        authConfig.secret ?? "",
+        {
+          expiresIn: authConfig.expiresIn,
+        }
+      ),
+    });
+  }
+
+  async showMission(req: any, res: any) {
+    return res.json(req.auth.id_mission);
   }
 }
 
