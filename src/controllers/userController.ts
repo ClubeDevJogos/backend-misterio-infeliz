@@ -69,9 +69,11 @@ class UserController {
     }
 
     // @ts-ignore
-    const { id_user, id_mission } = userExists;
+    const { id_user, id_mission, username } = userExists;
 
     return res.json({
+      username,
+      email,
       token: jwt.sign({ id_user, id_mission }, authConfig.secret ?? "", {
         expiresIn: authConfig.expiresIn,
       }),
