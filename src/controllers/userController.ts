@@ -21,6 +21,12 @@ class UserController {
 
     const { email } = req.body;
 
+    if (!email.endsWith("feliz.ifrs.edu.br")) {
+      return res
+        .status(400)
+        .json({ error: "Email não corresponde a instituição" });
+    }
+
     const userExists = await user.findOne({ where: { email } });
 
     if (userExists) {
