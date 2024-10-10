@@ -6,6 +6,7 @@ import errorRoute from "../middlewares/errorRoute";
 import userController from "../controllers/userController";
 import itemController from "../controllers/itemController";
 import chapterController from "../controllers/chapterController";
+import feedbackController from "../controllers/feedbackController";
 
 const routes = Router();
 
@@ -18,6 +19,7 @@ routes.get("/chapters", chapterController.index);
 routes.get("/hasItem", itemController.hasItem);
 routes.get("/missionUser", userController.showMission);
 routes.post("/updateMissionOfUser", userController.updateMission);
+routes.post("/feedback", feedbackController.store);
 
 routes.use(errorRoute);
 

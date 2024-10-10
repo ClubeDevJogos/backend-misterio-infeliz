@@ -5,6 +5,7 @@ import mission from "../models/mission";
 import user from "../models/user";
 import item from "../models/item";
 import user_item from "../models/user_item";
+import feedback from "../models/feedback";
 
 chapter.hasMany(mission, { foreignKey: "id_chapter" });
 
@@ -13,10 +14,13 @@ mission.hasMany(user, { foreignKey: "id_mission" });
 
 user.belongsTo(mission, { foreignKey: "id_mission" as "mission" });
 user.hasMany(user_item, { foreignKey: "id_user" });
+user.hasMany(feedback, { foreignKey: "id_user" });
 
 item.hasMany(user_item, { foreignKey: "id_item" });
 
 user_item.belongsTo(user, { foreignKey: "id_user" as "user" });
 user_item.belongsTo(item, { foreignKey: "id_item" as "item" });
+
+feedback.belongsTo(user, { foreignKey: "id_user" });
 
 database.sync({ force: false });
