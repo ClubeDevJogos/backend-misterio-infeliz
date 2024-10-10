@@ -11,6 +11,9 @@ module.exports = {
         {
           name: "Chapter 1",
         },
+        {
+          name: "Finished",
+        },
       ],
       {}
     );

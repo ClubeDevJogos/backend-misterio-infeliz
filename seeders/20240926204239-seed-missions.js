@@ -16,6 +16,10 @@ module.exports = {
           name: "Mission 2",
           id_chapter: 1,
         },
+        {
+          name: "Finished",
+          id_chapter: 2,
+        },
       ],
       {}
     );
