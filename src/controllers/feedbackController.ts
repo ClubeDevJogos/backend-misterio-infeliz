@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import mission from "../models/mission";
 import feedback from "../models/feedback";
+import user from "../models/user";
 
 class FeedbackController {
   async store(req: any, res: any) {
@@ -13,8 +14,14 @@ class FeedbackController {
       return res.status(400).json({ error: "Dados inválidos" });
     }
 
-    const { id_user, id_mission } = req.auth;
+    const { id_user } = req.auth;
 
+    // @ts-ignore
+    const { id_mission } = await user.findOne({
+      where: {
+        id_user,
+      },
+    });
     const missions = await mission.findAll();
     const lastMissionId = missions.length;
 

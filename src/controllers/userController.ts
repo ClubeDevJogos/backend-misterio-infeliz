@@ -75,20 +75,25 @@ class UserController {
     }
 
     // @ts-ignore
-    const { id_user, id_mission, username } = userExists;
+    const { id_user, username } = userExists;
 
     return res.json({
       username,
       email,
-      token: jwt.sign({ id_user, id_mission }, authConfig.secret ?? "", {
+      token: jwt.sign({ id_user }, authConfig.secret ?? "", {
         expiresIn: authConfig.expiresIn,
       }),
     });
   }
 
   async updateMission(req: any, res: any) {
+    // @ts-ignore
+    const { id_mission } = await user.findOne({
+      where: { id_user: req.auth.id_user },
+    });
+
     const next_mission = await mission.findOne({
-      where: { id_mission: req.auth.id_mission + 1 },
+      where: { id_mission: id_mission + 1 },
     });
 
     if (!next_mission) {
@@ -103,19 +108,16 @@ class UserController {
       { where: { id_user: req.auth.id_user } }
     );
 
-    return res.json({
-      token: jwt.sign(
-        { ...req.auth, id_mission: req.auth.id_mission + 1 },
-        authConfig.secret ?? "",
-        {
-          expiresIn: authConfig.expiresIn,
-        }
-      ),
-    });
+    return res.send();
   }
 
   async showMission(req: any, res: any) {
-    return res.json(req.auth.id_mission);
+    // @ts-ignore
+    const { id_mission } = await user.findOne({
+      where: { id_user: req.auth.id_user },
+    });
+
+    return res.json(id_mission);
   }
 }
 
